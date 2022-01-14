@@ -1,5 +1,5 @@
 img{
-    height: 3rem;
+    height: 2.5rem;
     
     
 
@@ -12,4 +12,8 @@ img{
     
         border-bottom: 2px solid white;
      
+}
+small{
+    border-bottom: 1px solid white;
+    margin: 6px;
 }
