@@ -6,6 +6,7 @@ import {useState , useEffect} from 'react'
 import axios from "axios";
 function App() {
   const[locationData, setLocationData] = useState([]);
+  const[locationObject,setLocationObject]= useState({})
 const getMapData = async() => {
   let getData = await axios.get("https://rcz-backend-arvinth.herokuapp.com/api/mapData",{
 params:{
@@ -15,7 +16,7 @@ params:{
 
 
   });
-  console.log(await getData.data);
+  setLocationObject(await getData.data);
 }
 
 
@@ -45,7 +46,7 @@ useEffect(()=>{
   return (
     <div className="App">
      
-    <Home/>
+    <Home locationDataFromApp = {locationObject}/>
     {locationData}
     </div>
   );

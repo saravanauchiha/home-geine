@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {  Row, Col } from "reactstrap";
 import './nav .css';
 import { Breadcrumb } from 'antd';
@@ -17,22 +17,31 @@ const suffix = (
   );
 
 const { Search } = Input;
- function Nav() {
+ function Nav({locationFromHome}) {
+const [locationDropDownValues,setLocationDropDownValues] = useState([])
+const [locationObjectWithValues,setLocationObjectWithValues] = useState({})
+useEffect(() => {
+  setLocationObjectWithValues(locationFromHome)
+  
+}, [locationFromHome])
     function handleMenuClick(e) {
         message.info('Click on menu item.');
         console.log('click', e);
       }
     const menu = (
         <Menu onClick={handleMenuClick}>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            1st menu item
+          {(Object.keys(locationObjectWithValues).length )
+          ?
+          (locationObjectWithValues.results.map((e,index)=>(
+          <Menu.Item key={index} icon={<UserOutlined />}>
+            {e.formatted_address}
           </Menu.Item>
-          <Menu.Item key="2" icon={<UserOutlined />}>
-            2nd menu item
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UserOutlined />}>
-            3rd menu item
-          </Menu.Item>
+          )))
+          :
+          (
+          <div></div>
+          )
+ }
         </Menu>
       );
     return (
@@ -64,7 +73,7 @@ const { Search } = Input;
             <Row >
             < Col lg={4} style={{display:"flex",justifyContent:"end"}}><Dropdown overlay={menu} >
       <Button style={{display:"flex",alignItems:"center",justifyContent:"space-between",height:"2.6rem"}}>
-     <EnvironmentOutlined />   Button <DownOutlined />
+     <EnvironmentOutlined />   Location <DownOutlined />
       </Button>
     </Dropdown></Col>   <Col lg={5}> <Search 
       placeholder="input search text"

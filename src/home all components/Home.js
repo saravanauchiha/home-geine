@@ -7,11 +7,11 @@ import Carouselcomponent from './carousel';
 import Homefooter from './Homefooter';
 
 
- function Home() {
+ function Home({locationDataFromApp}) {
     return (
         <div>
         <div className="home">
-        <Nav/>
+        <Nav locationFromHome = {locationDataFromApp}/>
        
         </div>
         <div>
