@@ -33,7 +33,7 @@ useEffect(() => {
           {(Object.keys(locationObjectWithValues).length )
           ?
           (locationObjectWithValues.results.map((e,index)=>(
-          <Menu.Item key={index} icon={<UserOutlined />}>
+          <Menu.Item key={index} icon={<EnvironmentOutlined />}>
             {e.formatted_address}
           </Menu.Item>
           )))
@@ -48,7 +48,7 @@ useEffect(() => {
         <div>
             <Row className="gh">
                 <Col lg={7} style={{display:"flex"}}>
-<img src="https://res.cloudinary.com/urbanclap/image/upload/images/growth/home-screen/1631097450980-d2de38.png"></img>
+
                 </Col>
                 <Col lg={5} style={{color:"white",fontSize:".8rem"}}>
                 <Row>

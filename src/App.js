@@ -1,9 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 import Home from './home all components/Home';
+import Details from './details/Details';
 import {  Row, Col } from "reactstrap";
 import {useState , useEffect} from 'react'
 import axios from "axios";
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 function App() {
   const[locationData, setLocationData] = useState([]);
   const[locationObject,setLocationObject]= useState({})
@@ -44,11 +52,18 @@ useEffect(()=>{
         
     },[])
   return (
+    <Router>
     <div className="App">
-     
+     <Switch>
+       <Route path="/Home">
     <Home locationDataFromApp = {locationObject}/>
-    {locationData}
+    </Route>
+    <Route path='/Details/:id'>
+      <Details />
+    </Route>
+    </Switch>
     </div>
+    </Router>
   );
   }
 
