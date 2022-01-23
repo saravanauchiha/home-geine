@@ -6,10 +6,10 @@ function Details(props) {
     return (
         <div>
             <Row>
-                <Col lg={3}><Row> <VerticalTabs/>
+                <Col lg={12}><Row> <VerticalTabs/>
                     </Row></Col>
 
-                <Col lg={5}>hi</Col>
+               
             </Row>
         </div>
     );

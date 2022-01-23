@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import {useState , useEffect} from 'react'
 import axios from 'axios';
+import './table.css';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,8 +43,9 @@ function a11yProps(index) {
 
 export default function VerticalTabs() {
   const [value, setValue] = React.useState(0);
-  const [categoriesTotaldata,setcategoriesTotaldata]= useState([]);
+  const [categoriesTotaldata,setCategoriesTotaldata]= useState([]);
   const[removeDups,setremoveDups] = useState([]);
+ 
   useEffect(() => {
       let getData = async () => {
           let dataGot = await axios.get("https://rcz-backend-arvinth.herokuapp.com/api/getGenieRecordsByAllCategories")
@@ -58,11 +60,22 @@ export default function VerticalTabs() {
            return e == toFilter
 
           }));
-          setcategoriesTotaldata(await dataGot.data)
+          let fulldata=await dataGot.data
+          
+          setCategoriesTotaldata( await fulldata.filter(e=>{
+            if(e.mainCategory==toFilter){
+
+              return e
+            }
+ 
+           }));
+           console.log(categoriesTotaldata)
+           
       }
     getData();
 
   }, [])
+ 
 
   const handleChange = (event, newValue) => {
       setValue(newValue);
@@ -70,7 +83,7 @@ export default function VerticalTabs() {
 
   return (
       <Box
-          sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 500 }}
+          sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: "500" }}
       >
           <Tabs
               orientation="vertical"
@@ -90,9 +103,37 @@ export default function VerticalTabs() {
               <Tab label="Item Six" {...a11yProps(5)} />
               <Tab label="Item Seven" {...a11yProps(6)} /> */}
           </Tabs>
+
+         
+               {/* <TabPanel  value={value} index={0}>
+               {categoriesTotaldata.length ? categoriesTotaldata.map((e,index)=>(
+       <p>{e.job}</p> 
+       )) :(<div></div>)}
+               </TabPanel> */}
+          
+         
           <TabPanel value={value} index={0}>
-              Item One
+          <table>
+        <tr>
+          
+          <th>category</th>
+          <th>job</th>
+          <th>price</th>
+          <th>rating</th>
+          <th>description</th>
+        </tr>
+        {categoriesTotaldata.length ? categoriesTotaldata.map((e,index)=>(
+        <tr>
+          <td>{e.category}</td>
+          <td>{e.job}</td>
+          <td>{e.price}</td>
+          <td>{e.rating}</td>
+          <td>{e.description}</td>
+        </tr>
+        )) :(<div></div>)}
+        </table>
           </TabPanel>
+         
           {/* <TabPanel value={value} index={1}>
               Item Two
           </TabPanel>
