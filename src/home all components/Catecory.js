@@ -41,7 +41,7 @@ import { Link } from 'react-router-dom';
             <Col lg={8}>
                 <Row style={{position:"relative",top:"-6rem",padding:"10px",color:"black",backgroundColor:"whitesmoke"}}>
                     { categoriesWithoutDups.map(e=>(
-                    <Col lg={3}>
+                    <Col lg={4}>
                          <Link to={`/Details/${e}`}>
             <Avatar size={50} src={icons[e]} />
 

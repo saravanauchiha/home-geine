@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import {useState , useEffect} from 'react'
 import axios from 'axios';
 import './table.css';
+import Cardfile from './Cardfile';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -60,17 +61,12 @@ export default function VerticalTabs() {
            return e == toFilter
 
           }));
-          let fulldata=await dataGot.data
-          
-          setCategoriesTotaldata( await fulldata.filter(e=>{
-            if(e.mainCategory==toFilter){
+          let contentToFilter =await dataGot.data.filter(e=>{
+             return e.mainCategory == toFilter
 
-              return e
-            }
- 
-           }));
-           console.log(categoriesTotaldata)
-           
+          })
+          setCategoriesTotaldata(contentToFilter)
+          
       }
     getData();
 
@@ -105,53 +101,17 @@ export default function VerticalTabs() {
           </Tabs>
 
          
-               {/* <TabPanel  value={value} index={0}>
-               {categoriesTotaldata.length ? categoriesTotaldata.map((e,index)=>(
-       <p>{e.job}</p> 
-       )) :(<div></div>)}
-               </TabPanel> */}
+             
           
          
           <TabPanel value={value} index={0}>
-          <table>
-        <tr>
+            {categoriesTotaldata.map(e=>(
+              <Cardfile jobFromData={e.job} priceFromData={e.price} ratingFromData={e.rating} detailsFromData={e.description}/>
+            ))}
           
-          <th>category</th>
-          <th>job</th>
-          <th>price</th>
-          <th>rating</th>
-          <th>description</th>
-        </tr>
-        {categoriesTotaldata.length ? categoriesTotaldata.map((e,index)=>(
-        <tr>
-          <td>{e.category}</td>
-          <td>{e.job}</td>
-          <td>{e.price}</td>
-          <td>{e.rating}</td>
-          <td>{e.description}</td>
-        </tr>
-        )) :(<div></div>)}
-        </table>
           </TabPanel>
          
-          {/* <TabPanel value={value} index={1}>
-              Item Two
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-              Item Three
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-              Item Four
-          </TabPanel>
-          <TabPanel value={value} index={4}>
-              Item Five
-          </TabPanel>
-          <TabPanel value={value} index={5}>
-              Item Six
-          </TabPanel>
-          <TabPanel value={value} index={6}>
-              Item Seven
-          </TabPanel> */}
+         
       </Box>
   );
 }
